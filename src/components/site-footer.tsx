@@ -5,7 +5,7 @@ const legalLinks = [
   ["プライバシーポリシー", "https://www.azisaba.net/privacy-policy/"],
   [
     "特定商取引法に基づく表記",
-    "https://www.azisaba.net/act-of-specified-commercial-transactions/",
+    "https://gist.github.com/acrylic-style/f8291fd460de5bcea60108e5be7009ea",
   ],
   ["寄付（購入）に関する注意", "https://www.azisaba.net/notes-on-donations/"],
 ] as const;
