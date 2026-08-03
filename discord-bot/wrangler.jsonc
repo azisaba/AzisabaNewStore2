@@ -1,0 +1,17 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "azisaba-store-discord-bot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+  },
+  "vars": {
+    "STORE_API_ROOT": "https://api-ktor.azisaba.net",
+    "DISCORD_ALLOWED_USER_IDS": "[\"575673035743559701\"]",
+  },
+  "secrets": {
+    "required": ["DISCORD_PUBLIC_KEY", "STORE_API_HMAC_SECRET"],
+  },
+}

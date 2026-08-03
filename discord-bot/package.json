@@ -1,0 +1,24 @@
+{
+  "name": "@azisaba/store-discord-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "register-commands": "node scripts/register-commands.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "discord-interactions": "^4.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0",
+    "wrangler": "^4.118.0"
+  }
+}

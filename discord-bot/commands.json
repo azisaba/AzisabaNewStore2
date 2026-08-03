@@ -1,0 +1,168 @@
+[
+  {
+    "name": "store",
+    "description": "ストアの商品データを管理します",
+    "type": 1,
+    "contexts": [0],
+    "options": [
+      {
+        "name": "product",
+        "description": "通常商品を管理します",
+        "type": 2,
+        "options": [
+          {
+            "name": "list",
+            "description": "商品一覧を表示します",
+            "type": 1,
+            "options": [
+              {
+                "name": "include_hidden",
+                "description": "非表示商品も含めます",
+                "type": 5
+              }
+            ]
+          },
+          {
+            "name": "create",
+            "description": "Modalから商品を追加します",
+            "type": 1,
+            "options": [
+              {
+                "name": "price",
+                "description": "表示価格（円）",
+                "type": 4,
+                "required": true,
+                "min_value": 0
+              },
+              {
+                "name": "hidden",
+                "description": "追加時から非表示にします",
+                "type": 5
+              }
+            ]
+          },
+          {
+            "name": "update",
+            "description": "Modalから商品を更新します",
+            "type": 1,
+            "options": [
+              {
+                "name": "id",
+                "description": "商品ID",
+                "type": 4,
+                "required": true,
+                "min_value": 1
+              },
+              {
+                "name": "price",
+                "description": "表示価格（円）",
+                "type": 4,
+                "min_value": 0
+              },
+              { "name": "hidden", "description": "非表示状態", "type": 5 }
+            ]
+          },
+          {
+            "name": "delete",
+            "description": "商品を削除します",
+            "type": 1,
+            "options": [
+              {
+                "name": "id",
+                "description": "商品ID",
+                "type": 4,
+                "required": true,
+                "min_value": 1
+              },
+              {
+                "name": "confirm",
+                "description": "削除を確認します",
+                "type": 5,
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sara",
+        "description": "Sara商品を管理します",
+        "type": 2,
+        "options": [
+          {
+            "name": "list",
+            "description": "Sara商品一覧を表示します",
+            "type": 1,
+            "options": [
+              {
+                "name": "include_hidden",
+                "description": "非表示商品も含めます",
+                "type": 5
+              }
+            ]
+          },
+          {
+            "name": "create",
+            "description": "ModalからSara商品を追加します",
+            "type": 1,
+            "options": [
+              {
+                "name": "price",
+                "description": "ランク価格（円）",
+                "type": 4,
+                "required": true,
+                "min_value": 0
+              },
+              {
+                "name": "hidden",
+                "description": "追加時から非表示にします",
+                "type": 5
+              }
+            ]
+          },
+          {
+            "name": "update",
+            "description": "ModalからSara商品を更新します",
+            "type": 1,
+            "options": [
+              {
+                "name": "id",
+                "description": "商品ID",
+                "type": 4,
+                "required": true,
+                "min_value": 1
+              },
+              {
+                "name": "price",
+                "description": "ランク価格（円）",
+                "type": 4,
+                "min_value": 0
+              },
+              { "name": "hidden", "description": "非表示状態", "type": 5 }
+            ]
+          },
+          {
+            "name": "delete",
+            "description": "Sara商品を削除します",
+            "type": 1,
+            "options": [
+              {
+                "name": "id",
+                "description": "商品ID",
+                "type": 4,
+                "required": true,
+                "min_value": 1
+              },
+              {
+                "name": "confirm",
+                "description": "削除を確認します",
+                "type": 5,
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
