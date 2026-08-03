@@ -27,7 +27,7 @@
     {
       "binding": "STORE_DB",
       "database_name": "azisaba-new-store",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "f8511999-b656-4e00-9280-3ba797d845bd",
       "migrations_dir": "migrations",
     },
   ],
