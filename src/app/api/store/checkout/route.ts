@@ -36,7 +36,11 @@ export async function POST(request: NextRequest) {
   );
   if (!preparedResult.response.ok) {
     return NextResponse.json(preparedResult.data, {
-      status: preparedResult.response.status,
+      status:
+        preparedResult.response.status >= 400 &&
+        preparedResult.response.status < 500
+          ? preparedResult.response.status
+          : 502,
     });
   }
   const prepared = preparedCheckoutSchema.parse(preparedResult.data);

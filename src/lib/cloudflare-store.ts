@@ -96,7 +96,7 @@ export async function createStoreSignature(
 export async function callStoreApi<T>(
   path: string,
   payload: unknown,
-): Promise<{ response: Response; data: T }> {
+): Promise<{ response: Response; data: T | { error: string } }> {
   const env = getStoreEnv();
   const body = JSON.stringify(payload);
   const response = await fetch(
@@ -113,6 +113,23 @@ export async function callStoreApi<T>(
       cache: "no-store",
     },
   );
-  const data = (await response.json()) as T;
+  const data = await parseStoreApiResponse<T>(response);
   return { response, data };
+}
+
+export async function parseStoreApiResponse<T>(
+  response: Response,
+): Promise<T | { error: string }> {
+  const responseBody = await response.text();
+  let data: T | { error: string };
+  if (!responseBody) {
+    data = { error: "store_backend_empty_response" };
+  } else {
+    try {
+      data = JSON.parse(responseBody) as T;
+    } catch {
+      data = { error: "store_backend_invalid_response" };
+    }
+  }
+  return data;
 }
