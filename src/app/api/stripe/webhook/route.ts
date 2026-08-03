@@ -21,13 +21,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "missing_signature" }, { status: 400 });
   }
   const body = await request.text();
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+    httpClient: Stripe.createFetchHttpClient(),
+    timeout: 15_000,
+    maxNetworkRetries: 1,
+  });
   let event: Stripe.Event;
   try {
     event = await stripe.webhooks.constructEventAsync(
       body,
       signature,
       env.STRIPE_WEBHOOK_SECRET,
+      undefined,
+      Stripe.createSubtleCryptoProvider(),
     );
   } catch {
     return NextResponse.json({ error: "invalid_signature" }, { status: 400 });

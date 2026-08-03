@@ -64,7 +64,11 @@ export async function POST(request: NextRequest) {
     )
     .run();
 
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+    httpClient: Stripe.createFetchHttpClient(),
+    timeout: 15_000,
+    maxNetworkRetries: 1,
+  });
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
     prepared.line_items.map((line) =>
       line.kind === "price"
@@ -91,7 +95,19 @@ export async function POST(request: NextRequest) {
       },
       { idempotencyKey: orderId },
     );
-  } catch {
+  } catch (error) {
+    if (error instanceof Stripe.errors.StripeError) {
+      console.error("Stripe Checkout Session creation failed", {
+        type: error.type,
+        code: error.code,
+        requestId: error.requestId,
+        statusCode: error.statusCode,
+      });
+    } else {
+      console.error("Stripe Checkout Session creation failed", {
+        name: error instanceof Error ? error.name : "UnknownError",
+      });
+    }
     await env.STORE_DB.prepare(
       "UPDATE store_orders SET status = 'checkout_failed', updated_at = ? WHERE order_id = ?",
     )
