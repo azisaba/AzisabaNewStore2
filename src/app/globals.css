@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --font-sans: var(--font-noto-sans-jp), "Yu Gothic UI", sans-serif;
+  --font-heading: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
+}
+
+:root {
+  --radius: 0.8rem;
+  --background: oklch(0.975 0.008 150);
+  --foreground: oklch(0.19 0.025 155);
+  --card: oklch(0.995 0.004 150);
+  --card-foreground: oklch(0.19 0.025 155);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.025 155);
+  --primary: oklch(0.54 0.16 149);
+  --primary-foreground: oklch(0.99 0.01 145);
+  --secondary: oklch(0.93 0.025 150);
+  --secondary-foreground: oklch(0.24 0.04 153);
+  --muted: oklch(0.94 0.012 150);
+  --muted-foreground: oklch(0.48 0.03 155);
+  --accent: oklch(0.91 0.045 145);
+  --accent-foreground: oklch(0.24 0.05 151);
+  --destructive: oklch(0.57 0.22 28);
+  --border: oklch(0.87 0.025 150);
+  --input: oklch(0.87 0.025 150);
+  --ring: oklch(0.54 0.16 149);
+}
+
+.dark {
+  --background: oklch(0.135 0.018 154);
+  --foreground: oklch(0.96 0.012 145);
+  --card: oklch(0.18 0.024 154);
+  --card-foreground: oklch(0.96 0.012 145);
+  --popover: oklch(0.18 0.024 154);
+  --popover-foreground: oklch(0.96 0.012 145);
+  --primary: oklch(0.74 0.18 143);
+  --primary-foreground: oklch(0.13 0.035 150);
+  --secondary: oklch(0.24 0.035 154);
+  --secondary-foreground: oklch(0.95 0.012 145);
+  --muted: oklch(0.22 0.025 154);
+  --muted-foreground: oklch(0.7 0.025 150);
+  --accent: oklch(0.27 0.055 148);
+  --accent-foreground: oklch(0.96 0.012 145);
+  --destructive: oklch(0.68 0.2 25);
+  --border: oklch(0.34 0.035 153 / 70%);
+  --input: oklch(0.34 0.035 153 / 80%);
+  --ring: oklch(0.74 0.18 143);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklch, var(--border) 28%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklch, var(--border) 28%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 32px 32px;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 45%, transparent);
+  }
+}
+
+@layer components {
+  .surface-panel {
+    @apply border-border/70 bg-card/90 border shadow-[0_24px_80px_-48px_rgba(0,0,0,0.55)] backdrop-blur-sm;
+  }
+
+  .product-description {
+    @apply text-foreground/85 text-[0.95rem] leading-8;
+  }
+
+  .product-description p {
+    @apply my-3;
+  }
+
+  .product-description ul,
+  .product-description ol {
+    @apply my-3 ml-6 space-y-2;
+  }
+
+  .product-description ul {
+    @apply list-disc;
+  }
+
+  .product-description ol {
+    @apply list-decimal;
+  }
+
+  .product-description code {
+    @apply bg-muted rounded px-1.5 py-0.5 font-mono text-sm;
+  }
+
+  .product-description a {
+    @apply text-primary underline underline-offset-4 hover:opacity-80;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
