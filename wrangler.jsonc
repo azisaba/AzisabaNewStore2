@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "azisaba-new-store",
-  "main": ".open-next/worker.js",
+  "main": "worker.ts",
   "compatibility_date": "2026-08-03",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
@@ -10,5 +10,42 @@
   },
   "observability": {
     "enabled": true,
+  },
+  "vars": {
+    "STORE_API_ROOT": "https://api-ktor.azisaba.net",
+    "STORE_PUBLIC_ORIGIN": "https://newstore.azisaba.net",
+    "STORE_MODE": "live",
+  },
+  "secrets": {
+    "required": [
+      "STRIPE_SECRET_KEY",
+      "STRIPE_WEBHOOK_SECRET",
+      "STORE_API_HMAC_SECRET",
+    ],
+  },
+  "d1_databases": [
+    {
+      "binding": "STORE_DB",
+      "database_name": "azisaba-new-store",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "STORE_FULFILLMENT_QUEUE",
+        "queue": "azisaba-store-fulfillment",
+      },
+    ],
+    "consumers": [
+      {
+        "queue": "azisaba-store-fulfillment",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 10,
+        "dead_letter_queue": "azisaba-store-fulfillment-dead-letter",
+      },
+    ],
   },
 }

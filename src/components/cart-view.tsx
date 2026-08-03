@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { API_ROOT, getCheckoutErrorMessage } from "@/lib/store-api";
+import { getCheckoutErrorMessage } from "@/lib/store-api";
 import {
   formatYen,
   getDisplayPrice,
@@ -82,7 +82,7 @@ export function CartView() {
       .filter((line) => line.kind === "sara")
       .map((line) => line.id);
     try {
-      const response = await fetch(`${API_ROOT}/store/pay`, {
+      const response = await fetch("/api/store/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

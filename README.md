@@ -1,6 +1,6 @@
 # アジ鯖ストア
 
-Next.js App Router、React、shadcn/uiで再設計したアジ鯖公式ストアです。商品情報・Minecraft ID確認・Stripe Checkoutは既存のKtor APIを利用します。
+Next.js App Router、React、shadcn/uiで再設計したアジ鯖公式ストアです。商品情報とMinecraft ID確認はKtor API、Stripe CheckoutとWebhook署名検証はCloudflare Workerが担当します。
 
 ## ローカル開発
 
@@ -23,11 +23,13 @@ pnpm build
 pnpm preview
 ```
 
-`pnpm preview` はOpenNextでビルドし、Cloudflare Workersランタイム相当で起動します。実決済APIはRefererを `https://newstore.azisaba.net` とlocalhostに限定しているため、`*.workers.dev` のプレビューURLでは決済を完了できません。
+`pnpm preview` はOpenNextでビルドし、Cloudflare Workersランタイム相当で起動します。Checkout APIはproductionで `https://newstore.azisaba.net`、test modeでlocalhostのOriginだけを受け付けます。
 
 OpenNextはWindowsネイティブ環境との完全な互換性を保証していません。このプロジェクトでもWorkersバンドルは生成できますが、Windows版workerdのローカル実行では動的requireの制約により500となるため、Workersプレビューと最終確認はWSLまたはLinux CIで実行してください。
 
 ## Cloudflare Workers
+
+Stripe秘密鍵はCloudflare Secretsにのみ登録します。D1・Queues・Secretsと段階移行の詳細は[Stripe移行手順](docs/stripe-migration.md)を参照してください。
 
 `wrangler.jsonc` と `open-next.config.ts` を含んでいます。デプロイ前にWorker名、互換日付、カスタムドメイン、ビルド時環境変数を確認してください。
 
