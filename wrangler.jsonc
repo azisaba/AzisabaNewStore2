@@ -13,7 +13,7 @@
   },
   "vars": {
     "STORE_API_ROOT": "https://api-ktor.azisaba.net",
-    "STORE_PUBLIC_ORIGIN": "https://newstore.azisaba.net",
+    "STORE_PUBLIC_ORIGIN": "https://store.azisaba.net",
     "STORE_MODE": "live",
   },
   "secrets": {
